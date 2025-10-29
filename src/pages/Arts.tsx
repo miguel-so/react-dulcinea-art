@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Container,
@@ -6,9 +6,14 @@ import {
   Heading,
   Text,
   Button,
-  Stack,
 } from '@chakra-ui/react';
 import ArtCard from '../components/ArtCard';
+import urlConstants from '../lib/constants/url.constants';
+import useToastNotification from '../lib/hooks/useToastNotification';
+import useApi from '../lib/hooks/useApi';
+import { ApiCommand } from '../lib/Api';
+
+const { getArtworks: getArtworksUrl } = urlConstants.artworks;
 
 const artsData = [
   {
@@ -74,9 +79,43 @@ const artsData = [
 ];
 
 const Arts: React.FC = () => {
+  const [artworks, setArtworks] = useState<Artwork[]>([]);
+
+  const showToast = useToastNotification();
+
+  const { loading: isGetArtworksLoading, sendRequest: getArtworks } =
+    useApi<GetArtworksResopnse>();
+
+  useEffect(() => {
+    fetchArtworks();
+  }, []);
+
+  console.log("artworks", artworks)
+
+  const fetchArtworks = () => {
+    getArtworks({
+      callback: (data: GetArtworksResopnse | null, error: string | null) => {
+        if (error) {
+          showToast({
+            title: 'Failed',
+            description: error,
+            status: 'error',
+          });
+          return;
+        }
+        if (!data) return null;
+        setArtworks(data.artworks);
+      },
+      command: ApiCommand.GET,
+      url: getArtworksUrl,
+      options: {
+        all: 'true',
+      },
+    });
+  };
+
   return (
     <Box>
-      {/* Hero Section */}
       <Box
         bgGradient='linear(to-r, teal.400, green.300)'
         color='white'
@@ -100,13 +139,13 @@ const Arts: React.FC = () => {
 
       {/* Art Cards Section */}
       <SimpleGrid columns={{ base: 1, md: 2, lg: 5 }} spacing={1} p={4}>
-        {artsData.map((art, idx) => (
+        {artworks.map((art) => (
           <ArtCard
-            key={idx}
-            name={art.name}
-            description={art.description}
-            image={art.image}
-            artworkId={art.artworkId}
+            key={art.id}
+            title={art.title}
+            notes={art.notes}
+            thumbnail={art.thumbnail}
+            id={art.id}
           />
         ))}
       </SimpleGrid>

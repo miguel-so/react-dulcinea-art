@@ -19,6 +19,7 @@ const urlConstants = {
   },
   artworks: {
     getArtworks: '/api/artworks',
+    getArtworkById: (id: string) => `/api/artworks/${id}`,
     createArtwork: '/api/artworks',
     editArtwork: (id: string) => `/api/artworks/${id}`,
     deleteArtwork: (id: string) => `/api/artworks/${id}`,
