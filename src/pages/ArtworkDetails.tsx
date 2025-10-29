@@ -17,21 +17,13 @@ import useApi from '../lib/hooks/useApi';
 import { ApiCommand } from '../lib/Api';
 import useToastNotification from '../lib/hooks/useToastNotification';
 
-const carouselImages = [
-  '/art1.png',
-  '/art2.png',
-  '/art3.png',
-  '/art4.png',
-  '/art5.png',
-];
-
 const mainWidth = 400;
 const mainHeight = 400;
 
-// ✅ Increased zoom effect and bigger zoom window
-const zoomFactor = 3; // was 2 before
-const zoomWidth = 400; // was 300 before
-const zoomHeight = 400; // was 300 before
+// Increased zoom effect and bigger zoom window
+const zoomFactor = 3;
+const zoomWidth = 400;
+const zoomHeight = 400;
 
 const { getArtworkById: getArtworkByIdUrl } = urlConstants.artworks;
 
@@ -39,7 +31,7 @@ const ArtworkDetails: React.FC = () => {
   const { artworkId } = useParams();
   const [artwork, setArtwork] = useState<Artwork>();
   const navigate = useNavigate();
-  const [selectedImage, setSelectedImage] = useState(carouselImages[0]);
+  const [selectedImage, setSelectedImage] = useState('');
   const [zoomVisible, setZoomVisible] = useState(false);
   const [zoomPos, setZoomPos] = useState({
     x: 0,
@@ -226,28 +218,6 @@ const ArtworkDetails: React.FC = () => {
           </HStack>
         </Container>
       </Box>
-
-      {/* <Box py={16} bg='#fffefa'>
-        <Container maxW='4xl'>
-          <VStack spacing={4} align='start'>
-            <Text fontSize='lg'>
-              <strong>Detail 1:</strong> Lorem ipsum dolor sit amet, consectetur
-              adipiscing elit, sed eiusmod tempor incididunt labore dolore magna
-              aliqua.
-            </Text>
-            <Text fontSize='lg'>
-              <strong>Detail 2:</strong> Lorem ipsum dolor sit amet, consectetur
-              adipiscing elit, sed eiusmod tempor incididunt labore dolore magna
-              aliqua.
-            </Text>
-            <Text fontSize='lg'>
-              <strong>Detail 3:</strong> Lorem ipsum dolor sit amet, consectetur
-              adipiscing elit, sed eiusmod tempor incididunt labore dolore magna
-              aliqua.
-            </Text>
-          </VStack>
-        </Container>
-      </Box> */}
     </Box>
   );
 };

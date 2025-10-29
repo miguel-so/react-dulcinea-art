@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Button,
@@ -7,22 +7,61 @@ import {
   FormLabel,
   Heading,
   SimpleGrid,
-  useToast,
 } from '@chakra-ui/react';
 import DulcineaInput from '../components/common/DulcineaInput';
 import DulcineaTextarea from '../components/common/DulcineaTextarea';
+import urlConstants from '../lib/constants/url.constants';
+import useToastNotification from '../lib/hooks/useToastNotification';
+import useApi from '../lib/hooks/useApi';
+import { ApiCommand } from '../lib/Api';
+import { useParams } from 'react-router-dom';
+
+const { contact: contactUrl } = urlConstants;
 
 const ContactForm: React.FC = () => {
-  const toast = useToast();
+  const [name, setName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [phone, setPhone] = useState<string>('');
+  const [message, setMessage] = useState<string>('');
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const { artworkId } = useParams();
+
+  const showToast = useToastNotification();
+  const { loading: isContactRequestLoading, sendRequest: contactRequest } =
+    useApi();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    toast({
-      title: 'Message sent.',
-      description: 'Thanks for filling out the form!',
-      status: 'success',
-      duration: 3000,
-      isClosable: true,
+
+    contactRequest({
+      callback(data: any, error) {
+        if (error) {
+          showToast({
+            title: 'Failed',
+            description: error,
+            status: 'error',
+          });
+          return;
+        }
+        setName('');
+        setEmail('');
+        setPhone('');
+        setMessage('');
+        showToast({
+          title: 'Success',
+          description: data?.message,
+          status: 'success',
+        });
+      },
+      command: ApiCommand.POST,
+      url: contactUrl,
+      options: {
+        artworkId,
+        name,
+        email,
+        phone,
+        message,
+      },
     });
   };
 
@@ -47,32 +86,50 @@ const ContactForm: React.FC = () => {
         </Heading>
         <form onSubmit={handleSubmit}>
           <SimpleGrid columns={{ base: 1, md: 3 }} spacing={4} mb={4}>
-            <FormControl id='name'>
+            <FormControl id='name' isRequired>
               <FormLabel>Name</FormLabel>
-              <DulcineaInput placeholder='Name' />
+              <DulcineaInput
+                placeholder='Name'
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
             </FormControl>
-            <FormControl id='email'>
+            <FormControl id='email' isRequired>
               <FormLabel>Email</FormLabel>
-              <DulcineaInput type='email' placeholder='Email' />
+              <DulcineaInput
+                type='email'
+                placeholder='Email'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </FormControl>
             <FormControl id='phone'>
               <FormLabel>Phone</FormLabel>
-              <DulcineaInput type='tel' placeholder='Phone' />
+              <DulcineaInput
+                type='tel'
+                placeholder='Phone'
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
             </FormControl>
           </SimpleGrid>
-          <FormControl id='message' mb={4}>
+          <FormControl id='message' mb={4} isRequired>
             <FormLabel>Your Message</FormLabel>
-            <DulcineaTextarea placeholder='Your Message' rows={6} />
+            <DulcineaTextarea
+              placeholder='Your Message'
+              rows={6}
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+            />
           </FormControl>
           <Box textAlign='center'>
             <Button
               backgroundColor='#1f6463'
               colorScheme='green'
-              _hover={{
-                backgroundColor: '#1f6463',
-                opacity: 0.9,
-              }}
+              _hover={{ backgroundColor: '#1f6463', opacity: 0.9 }}
               type='submit'
+              isLoading={isContactRequestLoading}
+              disabled={!name || !email || !message}
             >
               Send Now
             </Button>

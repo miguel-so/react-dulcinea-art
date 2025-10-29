@@ -12,6 +12,7 @@ type Artwork = {
   price?: string;
   location: string;
   id?: string;
+  artistId?: string;
 };
 
 type GetArtworksResopnse = {

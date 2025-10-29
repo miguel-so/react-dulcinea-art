@@ -24,6 +24,7 @@ const urlConstants = {
     editArtwork: (id: string) => `/api/artworks/${id}`,
     deleteArtwork: (id: string) => `/api/artworks/${id}`,
   },
+  contact: '/api/contact'
 };
 
 export default urlConstants;
