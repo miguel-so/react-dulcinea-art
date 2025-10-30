@@ -4,6 +4,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 
+import "swiper/css/bundle";
+
+import "./swiper.css";
+
 interface GalleryItem {
   image: string;
   title: string;
