@@ -17,6 +17,10 @@ export const theme = extendTheme({
       paleGreen: 'rgb(239, 255, 228)',
     },
   },
+  fonts: {
+    body: 'Inter Tight, sans-serif',
+    heading: 'Inter Tight, sans-serif',
+  },
   components: {
     Button: {
       baseStyle: {
@@ -48,5 +52,12 @@ export const theme = extendTheme({
         color: 'gray.800',
       },
     },
+    Box: {
+      baseStyle: {
+        '.md-pb': {
+          paddingBottom: { base: '2rem', md: 0 }
+        }
+      }
+    }
   },
 });
