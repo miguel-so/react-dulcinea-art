@@ -141,15 +141,16 @@ const ArtworkDetails: React.FC = () => {
         py={{ base: '2rem', md: '4rem' }}
         px={{ base: '1.5rem', md: '4rem' }}
         my={{ base: 4, md: 16 }}
+        height={{ base: '335px', md: '343px' }}
         textAlign="center"
         bg="white"
         boxShadow="lg"
         borderRadius="md"
       >
-        <Heading as="h1" size="xl" mb={4} fontWeight="bold" color="#1f6463">
+        <Heading as="h1" size="xl" mb={8} fontWeight="bold" color="#1f6463">
           "{artwork?.title}"
         </Heading>
-        <Text fontSize="lg" mb={6} color="#1f6463">
+        <Text fontSize="lg" mb={8} color="#1f6463">
           {artwork?.notes}
         </Text>
         <Button
