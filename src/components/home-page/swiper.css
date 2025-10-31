@@ -20,7 +20,8 @@
   color: #1f6463;
 }
 
-.swiper-button-prev,.swiper-button-next .swiper-navigation-icon {
+.swiper-button-prev .swiper-navigation-icon,
+.swiper-button-next .swiper-navigation-icon {
   width: 18px;
   height: 18px;
 }

@@ -44,29 +44,26 @@ const SpotlightCard: React.FC<SpotlightCardProps> = ({
       className={`card ${
         isFirst ? "first" : ""
       } col-12 col-md-6 col-lg-3 md-pb`}
-      borderRight={{ lg: "1px solid" }}
-      borderColor={{ lg: "gray.200" }}
+      borderRight={{ lg: "1px solid rgba(0, 0, 0)" }} // Darker border color
       _last={{ borderRight: "none" }}
+      width={{ base: "100%", md: "50%", lg: "25%" }} // Match Bootstrap grid
+      px={4} // Padding for the border spacing
     >
-      <Box
-        className="card-wrapper"
-        px={4} // Add padding to create space for dividers
-      >
-        <Box className="card-box align-left">
+      <Box className="card-wrapper" height="100%">
+        <Box className="card-box align-left" height="100%">
           <Box
             className="item-img"
             position="relative"
-            pt="133%" // Match the original aspect ratio
-            overflow="hidden"
+            width="454px" // Match original image width
+            maxW="100%" // Ensure responsive behavior
+            height="452px" // Match original image height
+            mx="auto" // Center the image container
           >
             <Image
               src={image}
               alt={title}
-              position="absolute"
-              top={0}
-              left={0}
-              w="100%"
-              h="100%"
+              width="100%"
+              height="100%"
               objectFit="cover"
             />
             <Box
@@ -107,19 +104,19 @@ const SpotlightCard: React.FC<SpotlightCardProps> = ({
             </Box>
           </Box>
 
-          <Heading
-            as="h5"
-            className="card-title mbr-fonts-style display-7"
-            fontSize="1.1rem"
-            fontWeight="normal"
-            mt={4}
-            lineHeight="1.5"
-            fontFamily="Inter Tight"
-            color="gray.700"
-            noOfLines={3} // Limit to 3 lines to maintain consistent height
-          >
-            {title}
-          </Heading>
+          <Box mt={4}>
+            <Heading
+              as="h5"
+              className="card-title mbr-fonts-style display-7"
+              fontSize="1.1rem"
+              fontWeight="normal"
+              lineHeight="1.5"
+              fontFamily="Inter Tight"
+              color="gray.700"
+            >
+              {title}
+            </Heading>
+          </Box>
         </Box>
       </Box>
     </Box>
@@ -157,7 +154,7 @@ export const ArtistSpotlight = () => {
 
       <Container maxW="container.fluid" position="relative" zIndex={1}>
         <Box className="row">
-          {/* Title Row */}
+          {/* Title */}
           <Box w="100%" mb={6}>
             <Heading
               className="mbr-section-title mbr-fonts-style mb-3 display-5"
@@ -170,13 +167,18 @@ export const ArtistSpotlight = () => {
             </Heading>
           </Box>
 
-          {/* Content Row */}
-          <Box display="flex" flexWrap="wrap" position="relative">
+          {/* Content */}
+          <Box
+            display="flex"
+            flexWrap="wrap"
+            mx={-4} // Compensate for card padding
+          >
             {/* View All Link */}
             <Box
               className="col-12 col-md-6 col-lg-3 md-pb"
               borderRight={{ lg: "1px solid" }}
-              borderColor={{ lg: "gray.200" }}
+              borderColor={{ lg: "black" }}
+              width={{ base: "100%", md: "50%", lg: "25%" }}
               px={4}
             >
               <Box className="card-wrapper">
@@ -208,7 +210,7 @@ export const ArtistSpotlight = () => {
             className="line mt-4 pt-5"
             w="100%"
             h="1px"
-            bg="gray.200"
+            bg="black"
             mt={16}
             mb={4}
           />
