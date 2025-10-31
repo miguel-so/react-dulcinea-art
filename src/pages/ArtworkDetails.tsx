@@ -138,7 +138,8 @@ const ArtworkDetails: React.FC = () => {
     <Box bgImage="url('/art-details-bg.jpg')" bgPosition="center" bgRepeat="repeat-y" pt={16}>
       <Container
         maxW="3xl"
-        py={{ base: 4, md: 8 }}
+        py={{ base: '2rem', md: '4rem' }}
+        px={{ base: '1.5rem', md: '4rem' }}
         my={{ base: 4, md: 16 }}
         textAlign="center"
         bg="white"
