@@ -185,7 +185,6 @@ const EditArtworkModal = ({
               <DulcineaInput
                 placeholder='Enter print number'
                 value={printNumber}
-                type='number'
                 onChange={(e) => setPrintNumber(e.target.value)}
               />
             </FormControl>
@@ -205,6 +204,10 @@ const EditArtworkModal = ({
               <DulcineaSelect
                 placeholder='Select status'
                 options={statusOptions}
+                defaultValue={{
+                  label: status,
+                  value: status
+                }}
                 onChange={(newValue) => {
                   setStatus(newValue?.value as ArtworkStatus);
                 }}
