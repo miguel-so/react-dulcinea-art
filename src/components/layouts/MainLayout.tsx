@@ -16,7 +16,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       <Header />
 
       {/* Main content */}
-      <Box flex="1" as="main">
+      <Box flex="1" as="main" mt='60px'>
         {children}
       </Box>
 

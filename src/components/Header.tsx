@@ -17,7 +17,7 @@ const MotionBox = motion(Box);
 // Only height animation for scroll
 const navVariants: Variants = {
   default: {
-    height: "104px",
+    height: "80px",
     transition: {
       duration: 0.3,
       ease: "easeInOut",
@@ -121,7 +121,7 @@ const Header = () => {
               className="navbar-brand"
               display="flex"
               alignItems="center"
-              minH={isScrolled ? "60px" : "70px"}
+              minH={isScrolled ? "60px" : "80px"}
               transition="all 0.3s"
             >
               <Box className="navbar-logo">
