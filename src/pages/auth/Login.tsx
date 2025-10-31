@@ -35,7 +35,7 @@ const Login = () => {
   const { sendRequest: loginRequest } =
     useApi<LoginResponse>();
 
-  if (isAuthenticated) navigate('/');
+  if (isAuthenticated) navigate(Path.DASHBOARD);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

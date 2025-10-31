@@ -15,69 +15,6 @@ import { ApiCommand } from '../lib/Api';
 
 const { getArtworks: getArtworksUrl } = urlConstants.artworks;
 
-const artsData = [
-  {
-    name: 'Name 1',
-    description: 'Description',
-    image: '/art1.png',
-    artworkId: '1231',
-  },
-  {
-    name: 'Name 2',
-    description: 'Description',
-    image: '/art1.png',
-    artworkId: '/details',
-  },
-  {
-    name: 'Name 3',
-    description: 'Description',
-    image: '/art1.png',
-    artworkId: '/details',
-  },
-  {
-    name: 'Name 4',
-    description: 'Description',
-    image: '/art1.png',
-    artworkId: '/details',
-  },
-  {
-    name: 'Name 5',
-    description: 'Description',
-    image: '/art1.png',
-    artworkId: '/details',
-  },
-  {
-    name: 'Name 1',
-    description: 'Description',
-    image: '/art1.png',
-    artworkId: '/details',
-  },
-  {
-    name: 'Name 2',
-    description: 'Description',
-    image: '/art1.png',
-    artworkId: '/details',
-  },
-  {
-    name: 'Name 3',
-    description: 'Description',
-    image: '/art1.png',
-    artworkId: '/details',
-  },
-  {
-    name: 'Name 4',
-    description: 'Description',
-    image: '/art1.png',
-    artworkId: '/details',
-  },
-  {
-    name: 'Name 5',
-    description: 'Description',
-    image: '/art1.png',
-    artworkId: '/details',
-  },
-];
-
 const Arts: React.FC = () => {
   const [artworks, setArtworks] = useState<Artwork[]>([]);
 
@@ -89,8 +26,6 @@ const Arts: React.FC = () => {
   useEffect(() => {
     fetchArtworks();
   }, []);
-
-  console.log("artworks", artworks)
 
   const fetchArtworks = () => {
     getArtworks({

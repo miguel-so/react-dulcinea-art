@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Image,
@@ -7,9 +7,11 @@ import {
   Button,
   Stack,
   VStack,
+  Icon,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { Path } from '../lib/constants/path.constants';
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
 interface ArtCardProps {
   title: string;
@@ -20,6 +22,29 @@ interface ArtCardProps {
 
 const ArtCard: React.FC<ArtCardProps> = ({ title, notes, thumbnail, id }) => {
   const navigate = useNavigate();
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  // Load favorite status from localStorage
+  useEffect(() => {
+    if (!id) return;
+    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+    setIsFavorite(favorites.includes(id));
+  }, [id]);
+
+  // Toggle favorite and save to localStorage
+  const toggleFavorite = () => {
+    if (!id) return;
+    const favorites: string[] = JSON.parse(localStorage.getItem('favorites') || '[]');
+    let updatedFavorites;
+    if (favorites.includes(id)) {
+      updatedFavorites = favorites.filter(favId => favId !== id);
+      setIsFavorite(false);
+    } else {
+      updatedFavorites = [...favorites, id];
+      setIsFavorite(true);
+    }
+    localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+  };
 
   return (
     <Box overflow='hidden' boxShadow='sm' bg='#f1ffe9' textAlign='center' m={2}>
@@ -48,8 +73,13 @@ const ArtCard: React.FC<ArtCardProps> = ({ title, notes, thumbnail, id }) => {
               See Details
             </Button>
           )}
-          <Button colorScheme='yellow' size='md' color='white'>
-            Mark Favorite
+          <Button
+            colorScheme={isFavorite ? 'red' : 'yellow'}
+            size='md'
+            onClick={toggleFavorite}
+            leftIcon={<Icon as={isFavorite ? FaHeart : FaRegHeart} />}
+          >
+            {isFavorite ? 'Favorited' : 'Mark Favorite'}
           </Button>
         </VStack>
       </Stack>
