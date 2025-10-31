@@ -54,7 +54,7 @@ const Arts: React.FC = () => {
       <Box
         bgGradient='linear(to-r, teal.400, green.300)'
         color='white'
-        paddingTop={{ base: 28, md: 32 }}
+        paddingTop={{ base: 20, md: 24 }}
         paddingBottom={{ base: 8, md: 12 }}
         textAlign='center'
       >
