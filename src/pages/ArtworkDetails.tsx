@@ -113,10 +113,21 @@ const ArtworkDetails: React.FC = () => {
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
 
-    if (zoomLeft + zoomWidth > viewportWidth) zoomLeft = e.clientX - zoomWidth - 20;
-    if (zoomTop + zoomHeight > viewportHeight) zoomTop = e.clientY - zoomHeight - 20;
+    if (zoomLeft + zoomWidth > viewportWidth)
+      zoomLeft = e.clientX - zoomWidth - 20;
+    if (zoomTop + zoomHeight > viewportHeight)
+      zoomTop = e.clientY - zoomHeight - 20;
 
-    setZoomPos({ x, y, zoomLeft, zoomTop, renderedWidth, renderedHeight, offsetX, offsetY });
+    setZoomPos({
+      x,
+      y,
+      zoomLeft,
+      zoomTop,
+      renderedWidth,
+      renderedHeight,
+      offsetX,
+      offsetY,
+    });
   };
 
   const getBgPosition = () => {
@@ -135,27 +146,32 @@ const ArtworkDetails: React.FC = () => {
   };
 
   return (
-    <Box bgImage="url('/art-details-bg.jpg')" bgPosition="center" bgRepeat="repeat-y" pt={16}>
+    <Box
+      bgImage="url('/art-details-bg.jpg')"
+      bgPosition='center'
+      bgRepeat='repeat-y'
+      pt={16}
+    >
       <Container
-        maxW="3xl"
+        maxW='3xl'
         py={{ base: '2rem', md: '4rem' }}
         px={{ base: '1.5rem', md: '4rem' }}
         my={{ base: 4, md: 16 }}
         height={{ base: '335px', md: '343px' }}
-        textAlign="center"
-        bg="white"
-        boxShadow="lg"
-        borderRadius="md"
+        textAlign='center'
+        bg='white'
+        boxShadow='lg'
+        borderRadius='md'
       >
-        <Heading as="h1" size="xl" mb={8} fontWeight="bold" color="#1f6463">
+        <Heading as='h1' size='xl' mb={8} fontWeight='bold' color='#1f6463'>
           "{artwork?.title}"
         </Heading>
-        <Text fontSize="lg" mb={8} color="#1f6463">
+        <Text fontSize='lg' mb={8} color='#1f6463'>
           {artwork?.notes}
         </Text>
         <Button
-          backgroundColor="#1f6463"
-          colorScheme="green"
+          backgroundColor='#1f6463'
+          colorScheme='green'
           rightIcon={<MdPhone />}
           _hover={{ backgroundColor: '#1f6463', opacity: 0.9 }}
           onClick={onContact}
@@ -165,67 +181,73 @@ const ArtworkDetails: React.FC = () => {
       </Container>
 
       <Box py={16}>
-        <Container maxW="6xl" textAlign="center">
+        <Container maxW='6xl' textAlign='center'>
           <Box
             ref={mainRef}
-            display="inline-block"
+            display='inline-block'
             width={`${mainWidth}px`}
             height={`${mainHeight}px`}
-            position="relative"
+            position='relative'
             onMouseMove={handleMouseMove}
             onMouseEnter={() => setZoomVisible(true)}
             onMouseLeave={() => setZoomVisible(false)}
-            cursor="crosshair"
-            borderRadius="md"
-            overflow="hidden"
-            bg="gray.100"
+            cursor='crosshair'
+            borderRadius='md'
+            overflow='hidden'
+            bg='gray.100'
           >
             <Image
               src={`${process.env.REACT_APP_API_URL}/artworks/${selectedImage}`}
-              alt="Main Artwork"
-              width="100%"
-              height="100%"
-              objectFit="contain"
-              objectPosition="center"
-              borderRadius="md"
+              alt='Main Artwork'
+              width='100%'
+              height='100%'
+              objectFit='contain'
+              objectPosition='center'
+              borderRadius='md'
               onContextMenu={(e) => e.preventDefault()}
             />
           </Box>
 
           {zoomVisible && (
             <Box
-              position="fixed"
+              position='fixed'
               width={`${zoomWidth}px`}
               height={`${zoomHeight}px`}
               top={`${zoomPos.zoomTop}px`}
               left={`${zoomPos.zoomLeft}px`}
-              border="2px solid #1f6463"
-              borderRadius="md"
-              pointerEvents="none"
-              bgColor="white"
+              border='2px solid #1f6463'
+              borderRadius='md'
+              pointerEvents='none'
+              bgColor='white'
               bgImage={`url(${process.env.REACT_APP_API_URL}/artworks/${selectedImage})`}
-              bgRepeat="no-repeat"
-              bgSize={`${zoomPos.renderedWidth * zoomFactor}px ${zoomPos.renderedHeight * zoomFactor}px`}
+              bgRepeat='no-repeat'
+              bgSize={`${zoomPos.renderedWidth * zoomFactor}px ${
+                zoomPos.renderedHeight * zoomFactor
+              }px`}
               bgPosition={getBgPosition()}
             />
           )}
 
-          <HStack mt={4} spacing={4} justify="center">
+          <HStack mt={4} spacing={4} justify='center'>
             {artwork
               ? [...artwork.images, artwork.thumbnail].map((img, idx) => (
                   <Box
                     key={idx}
-                    border={img === selectedImage ? '2px solid #1f6463' : '2px solid transparent'}
-                    borderRadius="md"
-                    cursor="pointer"
+                    border={
+                      img === selectedImage
+                        ? '2px solid #1f6463'
+                        : '2px solid transparent'
+                    }
+                    borderRadius='md'
+                    cursor='pointer'
                     onClick={() => setSelectedImage(img)}
                   >
                     <Image
                       src={`${process.env.REACT_APP_API_URL}/artworks/${img}`}
                       alt={`Artwork ${idx + 1}`}
-                      boxSize="80px"
-                      objectFit="cover"
-                      borderRadius="md"
+                      boxSize='80px'
+                      objectFit='cover'
+                      borderRadius='md'
                       onContextMenu={(e) => e.preventDefault()}
                     />
                   </Box>
@@ -233,6 +255,32 @@ const ArtworkDetails: React.FC = () => {
               : null}
           </HStack>
         </Container>
+        <Box py={16}>
+          <Container maxW='6xl' textAlign='center'>
+            <Box p={6} fontSize='18px' color='rgb(53, 53, 53)' lineHeight='25px'>
+              <ul
+                style={{
+                  textAlign: 'left',
+                  listStyleType: 'none',
+                  paddingLeft: 0,
+                }}
+              >
+                <Text>
+                  <strong>Detail 1:</strong>{' '}
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incididunt labore dolore magna aliqua.
+                </Text>
+                <Text mt='12px'>
+                  <strong>Detail 2:</strong>{' '}
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incididunt labore dolore magna aliqua.
+                </Text>
+                <Text mt='12px'>
+                  <strong>Detail 3:</strong>{' '}
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incididunt labore dolore magna aliqua.
+                </Text>
+              </ul>
+            </Box>
+          </Container>
+        </Box>
       </Box>
     </Box>
   );
