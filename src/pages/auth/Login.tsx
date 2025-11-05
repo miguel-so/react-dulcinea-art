@@ -8,23 +8,23 @@ import {
   Link,
   Text,
   VStack,
-} from '@chakra-ui/react';
-import { useState } from 'react';
-import { useNavigate, Link as RouterLink } from 'react-router-dom';
+} from "@chakra-ui/react";
+import { useState } from "react";
+import { useNavigate, Link as RouterLink } from "react-router-dom";
 
-import { useAuth } from '../../lib/contexts/AuthContext';
-import urlConstants from '../../lib/constants/url.constants';
-import useApi from '../../lib/hooks/useApi';
-import useToastNotification from '../../lib/hooks/useToastNotification';
-import { ApiCommand } from '../../lib/Api';
-import { Path } from '../../lib/constants/path.constants';
+import { useAuth } from "../../lib/contexts/AuthContext";
+import urlConstants from "../../lib/constants/url.constants";
+import useApi from "../../lib/hooks/useApi";
+import useToastNotification from "../../lib/hooks/useToastNotification";
+import { ApiCommand } from "../../lib/Api";
+import { Path } from "../../lib/constants/path.constants";
 
 const { login: loginUrl } = urlConstants.auth;
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
 
   const navigate = useNavigate();
@@ -32,10 +32,9 @@ const Login = () => {
 
   const showToast = useToastNotification();
 
-  const { sendRequest: loginRequest } =
-    useApi<LoginResponse>();
+  const { sendRequest: loginRequest } = useApi<LoginResponse>();
 
-  if (isAuthenticated) navigate(Path.DASHBOARD);
+  if (isAuthenticated) navigate(Path.USERS);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -49,16 +48,16 @@ const Login = () => {
       callback: (data: LoginResponse | null, error: string | null) => {
         if (error) {
           showToast({
-            title: 'Login Failed',
+            title: "Login Failed",
             description: data?.message || error,
-            status: 'error',
+            status: "error",
           });
           return;
         }
         if (!data) return null;
         const { token } = data.data;
         const { email, username } = data.data.user;
-        localStorage.setItem('dulcinea_auth_token', token);
+        localStorage.setItem("dulcinea_auth_token", token);
         login({
           token,
           user: {
@@ -66,56 +65,61 @@ const Login = () => {
             username,
           },
         });
-        navigate(Path.DASHBOARD);
+        navigate(Path.USERS);
       },
       command: ApiCommand.POST,
       url: loginUrl,
       options: {
         email: formData.email,
-        password: formData.password
-      }
+        password: formData.password,
+      },
     });
   };
 
   return (
     <Box
-      maxW='400px'
-      mx='auto'
-      mt='200px'
-      p='8'
-      borderRadius='lg'
-      boxShadow='lg'
-      bg='white'
+      maxW="400px"
+      mx="auto"
+      mt="200px"
+      p="8"
+      borderRadius="lg"
+      boxShadow="lg"
+      bg="white"
     >
-      <VStack spacing={4} as='form' onSubmit={handleLogin}>
-        <FormControl id='email' isRequired>
+      <VStack spacing={4} as="form" onSubmit={handleLogin}>
+        <FormControl id="email" isRequired>
           <FormLabel>Email</FormLabel>
           <Input
-            name='email'
+            name="email"
             value={formData.email}
             onChange={handleInputChange}
-            placeholder='Enter your email'
+            placeholder="Enter your email"
           />
         </FormControl>
 
-        <FormControl id='password' isRequired>
+        <FormControl id="password" isRequired>
           <FormLabel>Password</FormLabel>
           <Input
-            type='password'
-            name='password'
+            type="password"
+            name="password"
             value={formData.password}
             onChange={handleInputChange}
-            placeholder='Enter your password'
+            placeholder="Enter your password"
           />
         </FormControl>
 
-        <Button colorScheme='teal' width='full' type='submit'>
+        <Button colorScheme="teal" width="full" type="submit">
           Login
         </Button>
         <VStack spacing={2} pt={4}>
           <HStack spacing={2}>
             <Text fontSize="sm">Don't have an account?</Text>
-            <Link as={RouterLink} to="/register" color="teal.600" fontWeight="medium">
+            <Link
+              as={RouterLink}
+              to="/register"
+              color="teal.600"
+              fontWeight="medium"
+            >
               Register
             </Link>
           </HStack>
@@ -125,7 +129,7 @@ const Login = () => {
             to="/forgot-password"
             color="teal.500"
             fontSize="sm"
-            _hover={{ textDecoration: 'underline' }}
+            _hover={{ textDecoration: "underline" }}
           >
             Forgot your password?
           </Link>

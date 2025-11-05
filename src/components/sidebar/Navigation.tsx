@@ -1,37 +1,31 @@
-import { List, ListItem } from '@chakra-ui/react';
-import { useLocation } from 'react-router-dom'; // Import useLocation to get current route
+import { List, ListItem } from "@chakra-ui/react";
+import { useLocation } from "react-router-dom"; // Import useLocation to get current route
 import {
   MdOutlinePeople,
   MdOutlineCategory,
   MdFitnessCenter,
   MdPalette,
-} from 'react-icons/md';
+} from "react-icons/md";
 
-import { NavItem } from './NavItem';
-import { Path } from '../../lib/constants/path.constants';
+import { NavItem } from "./NavItem";
+import { Path } from "../../lib/constants/path.constants";
 
 const items: NavbarItem[] = [
-  // {
-  //   type: 'link',
-  //   label: 'Dashboard',
-  //   icon: MdOutlineSpaceDashboard,
-  //   path: Path.DASHBOARD,
-  // },
   {
-    type: 'link',
-    label: 'Users',
+    type: "link",
+    label: "Users",
     icon: MdOutlinePeople,
     path: Path.USERS,
   },
   {
-    type: 'link',
-    label: 'Categories',
+    type: "link",
+    label: "Categories",
     icon: MdOutlineCategory,
     path: Path.CATEGORIES,
   },
   {
-    type: 'link',
-    label: 'Artworks',
+    type: "link",
+    label: "Artworks",
     icon: MdPalette,
     path: Path.ARTWORKS,
   },
@@ -45,7 +39,7 @@ export const Navigation = ({ collapse }: NavigationProps) => {
   const location = useLocation();
 
   return (
-    <List w='full' my={8}>
+    <List w="full" my={8}>
       {items.map((item, index) => (
         <ListItem key={index}>
           <NavItem

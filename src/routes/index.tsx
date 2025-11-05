@@ -3,25 +3,24 @@ import {
   Route,
   Routes,
   Navigate,
-} from 'react-router-dom';
+} from "react-router-dom";
 
-import UnauthorizedRoute from './UnauthorizedRoute';
-import PrivateRoute from './PrivateRoute';
-import { Path } from '../lib/constants/path.constants';
-import Login from '../pages/auth/Login';
-import Dashboard from '../pages/admin/Dashboard';
-import Users from '../pages/admin/Users';
-import Categories from '../pages/admin/Categories';
-import Artworks from '../pages/admin/Artworks';
-import Register from '../pages/auth/Register';
-import ForgotPassword from '../pages/auth/ForgotPassword';
-import ResetPassword from '../pages/auth/ResetPassword';
-import VerifyEmail from '../pages/auth/VerifyEmail';
-import Home from '../pages/Home';
-import About from '../pages/About';
-import Arts from '../pages/Arts';
-import ArtworkDetails from '../pages/ArtworkDetails';
-import ContactForm from '../pages/Contact';
+import UnauthorizedRoute from "./UnauthorizedRoute";
+import PrivateRoute from "./PrivateRoute";
+import { Path } from "../lib/constants/path.constants";
+import Login from "../pages/auth/Login";
+import Users from "../pages/admin/Users";
+import Categories from "../pages/admin/Categories";
+import Artworks from "../pages/admin/Artworks";
+import Register from "../pages/auth/Register";
+import ForgotPassword from "../pages/auth/ForgotPassword";
+import ResetPassword from "../pages/auth/ResetPassword";
+import VerifyEmail from "../pages/auth/VerifyEmail";
+import Home from "../pages/Home";
+import About from "../pages/About";
+import Arts from "../pages/Arts";
+import ArtworkDetails from "../pages/ArtworkDetails";
+import ContactForm from "../pages/Contact";
 
 const AppRoutes = () => {
   return (
@@ -36,22 +35,21 @@ const AppRoutes = () => {
         />
         <Route path={Path.VERIFY_EMAIL} element={<VerifyEmail />} />
 
-        <Route element={<UnauthorizedRoute />}>
+        {/* <Route element={<UnauthorizedRoute />}>
           <Route path={Path.HOME} element={<Home />} />
           <Route path={Path.ABOUT} element={<About />} />
           <Route path={Path.ARTS} element={<Arts />} />
           <Route path={`${Path.ARTWORK_DETAILS}/:artworkId`} element={<ArtworkDetails />} />
           <Route path={`${Path.CONTACT}/:artworkId`} element={<ContactForm />} />
-        </Route>
+        </Route> */}
 
         <Route element={<PrivateRoute />}>
-          <Route path={Path.DASHBOARD} element={<Dashboard />} />
           <Route path={Path.USERS} element={<Users />} />
           <Route path={Path.CATEGORIES} element={<Categories />} />
           <Route path={Path.ARTWORKS} element={<Artworks />} />
         </Route>
 
-        <Route path='*' element={<Navigate to={Path.HOME} />} />
+        <Route path="*" element={<Navigate to={Path.LOGIN} />} />
       </Routes>
     </Router>
   );
